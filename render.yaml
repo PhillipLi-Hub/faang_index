@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: faang-index-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn faang_index_api.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: REQUIRE_REFRESH_TOKEN
+        value: "true"
+      - key: REFRESH_TOKEN
+        generateValue: true
